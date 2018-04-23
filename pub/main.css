@@ -1,0 +1,22 @@
+#allimg {
+    margin-top: 55px;
+    margin-left: 310px;
+    margin-right: auto;
+    margin-bottom: 50px;
+
+    max-width: 100%;
+    height: auto;
+
+}
+#img123,#img456 {
+    margin-bottom: 30px;
+}
+#img2,#img5,#img8 {
+ margin-left: auto;
+ margin-right: auto;
+
+}
+body{
+ background-color: lightgray;
+}
+
