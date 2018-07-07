@@ -31,3 +31,5 @@ Error level: 8 Text: A session had already been started - ignoring session_start
 Error level: 8 Text: A session had already been started - ignoring session_start() in file: /media/share/html/src/classes/Session.php on line: 13
 Error level: 8 Text: A session had already been started - ignoring session_start() in file: /media/share/html/src/classes/Session.php on line: 13
 Call to undefined function connect()Error level: 8 Text: Undefined index: REMOTE_HOST in file: /media/share/html/view/error.php on line: 5
+Error level: 8 Text: A session had already been started - ignoring session_start() in file: /media/share/html/src/classes/Session.php on line: 13
+Call to undefined function connect()Error level: 8 Text: Undefined index: REMOTE_HOST in file: /media/share/html/view/error.php on line: 5
