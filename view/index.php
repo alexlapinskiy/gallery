@@ -1,12 +1,7 @@
-<?php
-//loaded file with variables
-require_once('src/app.php');
-$collection = getCollection();
-?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?php echo PAGE_TITLE ?></title>
+    <title><?php echo $title ?></title>
     <link rel="stylesheet" href="pub/css/bootstrap.css">
     <link rel="stylesheet" href="pub/css/main.css">
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -16,29 +11,55 @@ $collection = getCollection();
 <body>
 <div class="album py-5 bg-light">
     <div class="container">
-        <h1 class="h1 text-center"><?php echo PAGE_TITLE ?></h1>
-         <!--link to form-->
-        <a class="btn btn-dark btn-lg active m-md-2" href="/form" >Upload New Images</a>
+        <ul class="nav justify-content-end">
+            <?php if (Application::get('session')->isLogedIn()): ?>
+                <li class="nav-item">
+                    <a class="btn btn-primary" href="/logout">Log out</a>
+                </li>
+            <?php else: ?>
+                <li class="nav-item">
+                    <a class="btn btn-outline-primary" href="/login">Log in</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-secondary" href="/register">Registration</a>
+                </li>
+            <?php endif; ?>
+        </ul>
+        <h1 class="h1 text-center"><?php echo $title ?></h1>
+        <?php if (Application::get('session')->isLoggedIn()) : ?>
+            <a class="btn btn-primary btn-lg active m-md-2" href="/form">Upload New Image</a>
+        <?php endif; ?>
+        <?php if ($messages = Application::get('session')->messages()): ?>
+            <div class="alert alert-success">
+                <?php echo $messages ?>
+            </div>
+        <?php endif; ?>
         <div class="row">
-            <?php if (!empty($images = formatImages($collection))): ?>
+            <?php if (!empty($images =$image->getCollection())): ?>
                 <?php foreach ($images as $image): ?>
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
                             <a data-fancybox="gallery"
-                               href="<?php echo $image['url'] ?>">
-                                <img class="card-img-top" alt="Image" src="<?php echo $image['thumbnail'] ?>">
+                               href="<?php echo $image['image_path'] ?>">
+                                <img class="card-img-top" alt="Image" src="<?php echo $image['thumbnail_path'] ?>">
                             </a>
                             <div class="card-body">
-                                <p class="card-text">Author: <?php echo $image['author'] ?>,
+                                <p class="card-text">Author: <?php echo $image['author_name'] ?>,
                                     Description: <?php echo $image['description'] ?>,
-                                    Resolution: <?php echo implode('x', [$image['width'], $image['height']]) ?>
-                                    Created at: <?php echo $image['created_at'] ?>
+<!--                                    Owner: --><?php //echo $image['user_login'] ?>
+                                    Created at: <?php echo $image['created_date'] ?>
                                 </p>
                             </div>
+                            <?php if (Application::get('session')->isLoggedIn()): ?>
+                                <button type="button" class="btn btn-danger btn-xs"
+                                        onclick="if (confirm('Are you sure?')) {location.href = '/removeImage?image_id=<?php echo $image['image_id'] ?>';}">
+                                    Delete
+                                </button>
+                            <?php endif; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
-             <?php else: ?>
+            <?php else: ?>
                 <div class="alert alert-danger col-12">
                     There are no images yet :P
                 </div>
@@ -47,12 +68,11 @@ $collection = getCollection();
         <div class="d-flex p-2">
             <nav>
                 <ul class="pagination justify-content-center">
-                    <?php echo renderPagination($collection) ?>
+                    <?php echo $pagination->render()?>
                 </ul>
             </nav>
         </div>
     </div>
 </div>
-
 </body>
 </html>

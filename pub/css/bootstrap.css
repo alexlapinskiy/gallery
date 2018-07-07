@@ -66,7 +66,9 @@ body {
     line-height: 1.5;
     color: #212529;
     text-align: left;
-    background-color: #fff;
+    background-color: #f8f9fa !important;
+
+
 }
 
 [tabindex="-1"]:focus {
@@ -2186,8 +2188,8 @@ fieldset:disabled a.btn {
 .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
 .show > .btn-primary.dropdown-toggle {
     color: #fff;
-    background-color: #8a6d3b;
-    border-color: #1c7430;
+    background-color: #0062cc;
+    border-color: #005cbf;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
@@ -2367,7 +2369,7 @@ fieldset:disabled a.btn {
 
 .btn-light {
     color: #212529;
-    background-color: #8a6d3b#8a6d3b;
+    background-color: #f8f9fa;
     border-color: #f8f9fa;
 }
 
@@ -4348,7 +4350,7 @@ input[type="button"].btn-block {
     padding: 0.5rem 0.75rem;
     margin-left: -1px;
     line-height: 1.25;
-    color: black;
+    color: #007bff;
     background-color: #fff;
     border: 1px solid #dee2e6;
 }
