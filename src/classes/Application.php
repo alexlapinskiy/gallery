@@ -10,7 +10,7 @@ class Application
      */
     public function __construct()
     {
-        $errors= new Session();
+        //$errors= new Session();
         set_error_handler(array($this, 'errorHandler'), -1);
         set_exception_handler(array($this, 'exceptionHandler'));
         register_shutdown_function(array($this, 'shutDown'));
@@ -51,8 +51,8 @@ class Application
      * @param $e
      */
     public function exceptionHandler($e)
-    {
-        Application::get('log')->write($e->getMessage());
+    {   $e=new Session();
+        Application::get('log')->write($e->getMessages());
         require($_SERVER['DOCUMENT_ROOT'] . 'view/error.php');
     }
 

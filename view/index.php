@@ -12,7 +12,7 @@
 <div class="album py-5 bg-light">
     <div class="container">
         <ul class="nav justify-content-end">
-            <?php if (Application::get('session')->isLogedIn()): ?>
+            <?php if (Application::get('session')->isLoggedIn()): ?>
                 <li class="nav-item">
                     <a class="btn btn-primary" href="/logout">Log out</a>
                 </li>

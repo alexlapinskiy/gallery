@@ -1,6 +1,6 @@
 <?php
 
-class User
+class User extends Connect
 {
     /** add user info into file and auth user
      *

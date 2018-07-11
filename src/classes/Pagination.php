@@ -8,25 +8,27 @@
 
 class Pagination
 {
-    const IMAGE_COUNT = 9;
+
+    const IMAGE_COUNT=9;
     private $pageCount = false;
 
     /** Return qty of pages
      *
      * @return float|int
      */
-    public function getPageCount()
+    public function getPageCount()///MUST BE FIXED
     {
-        $database = connect();
-        $result = request($database, 'SELECT COUNT(image_id) FROM images');
-        return ceil($result->fetchColumn(0) / IMAGE_COUNT);
+        $database = new Connect();
+        $result = $database->request('SELECT COUNT(image_id) FROM images', []);
+        return ceil($result->fetchColumn(0) / self::IMAGE_COUNT);
+
     }
 
     /** Get last page number
      *
      * @return int
      */
-    public function getLastPage(): int //private
+    public function getLastPage() //private
     {
         return $this->getPageCount();
     }

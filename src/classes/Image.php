@@ -23,10 +23,10 @@ class Image extends Connect
         if (!empty($images)) {
             //sorting part
             usort($images, function ($imageA, $imageB) {
-                if ($imageA['created_at'] == $imageB['created_at']) {
+                if ($imageA['created_date'] == $imageB['created_date']) {
                     return 0;
                 }
-                return ($imageA['created_at'] < $imageB['created_at']) ? -1 : 1;
+                return ($imageA['created_date'] < $imageB['created_date']) ? -1 : 1;
             });
         }
     }
@@ -65,8 +65,8 @@ class Image extends Connect
      */
     public function thumbnail($imagePath, &$width, &$height)
     {
-        if (!$this->createDir(IMAGE_THUMBNAIL_URL)) {
-            return IMAGE_PLACEHOLDER;
+        if (!$this->createDir(self::IMAGE_THUMBNAIL_URL)) {
+            return self::IMAGE_PLACEHOLDER;
         }
         $params = $this->getOriginalSize($imagePath);
         $thumbnailPath = $this->resize($imagePath, $width, $height, $params);
@@ -74,7 +74,7 @@ class Image extends Connect
         if ($thumbnailPath) {
             return $thumbnailPath;
         } else {
-            return IMAGE_PLACEHOLDER;
+            return self::IMAGE_PLACEHOLDER;
         }
     }
 
@@ -89,7 +89,7 @@ class Image extends Connect
      */
     public function resize($imagePath, $width, $height, $params)
     {
-        $filename = IMAGE_THUMBNAIL_URL . basename($imagePath);
+        $filename = self::IMAGE_THUMBNAIL_URL . basename($imagePath);
         if (file_exists($filename)) {
             return $filename;
         }
@@ -179,7 +179,7 @@ LIMIT " . $offset . ", " . Pagination::IMAGE_COUNT;
      */
     public function delete($id)
     {
-        if (App::get('session')->isLoggedIn()) {
+        if (Application::get('session')->isLoggedIn()) {
             $image = $this->request("SELECT image_path, thumbnail_path FROM images WHERE image_id = :id", [':id' => $id]);
             $this->request("DELETE FROM images WHERE image_id = :id", [':id' => $id]);
             unlink($image->fetchColumn(0));
@@ -221,10 +221,10 @@ VALUES (NULL , :image_path, :thumbnail_path, :description, :author_name, CURRENT
 
     public function upload($file)
     {
-        if (!$this->createDir(IMAGE_RESOURCE_URL)) {
+        if (!$this->createDir(self::IMAGE_RESOURCE_URL)) {
             return false;
         }
-        $filename = IMAGE_RESOURCE_URL . time() . $file['name'];
+        $filename = self::IMAGE_RESOURCE_URL . time() . $file['name'];
         if (move_uploaded_file($file['tmp_name'], $filename)) {
             return $filename;
         }

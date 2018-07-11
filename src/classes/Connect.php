@@ -16,10 +16,11 @@ class Connect
 
     public function __construct()
     {
-        $this->database = connect();
+        Connect::run();
+        $this->database = self::$pdo;
     }
 
-    public static function connect()
+    public static function run()
     {
         if (null === static::$pdo) {
             try {
@@ -43,7 +44,7 @@ class Connect
         return static::$pdo;
     }
 
-    protected function request($sql, $params = [])
+    public  function request($sql, $params = [])
     {
         $query = $this->database->prepare($sql);
         $result = $query->execute($params);

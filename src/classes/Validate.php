@@ -13,7 +13,7 @@ class Validate
      * @param $data
      * @return array|bool
      */
-    public function validate($data)
+    public function validateForm($data)
     {
         $errors = array();
         if (empty($data['authorname']) || strlen($data['authorname']) > 40) {
@@ -67,7 +67,7 @@ class Validate
      * @param $data
      * @return bool
      */
-    public function validateRegistration($data)
+    public static function validateRegistration($data)
     {
         $errors = array();
         if (empty($data['login'])) {
