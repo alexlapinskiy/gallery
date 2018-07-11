@@ -74,7 +74,7 @@ class Controller
      *
      * @throws Exception
      */
-    private function processAction()
+    private function submitAction()
     {
         $request = $_REQUEST;
         if (($valid = Application::get('validate')->validateForm($request)) === true) {
